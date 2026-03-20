@@ -224,7 +224,7 @@ def main():
     # ── Sidebar — API Key ──
     with st.sidebar:
         st.markdown("### ⚙️ Settings")
-        api_key = st.text_input("🔑 Groq API Key", type="password",
+        api_key = st.secrets.get("GROQ_API_KEY", "") or st.text_input("🔑 Groq API Key", type="password",
                                 help="Get free key at aistudio.google.com")
         st.markdown("---")
         st.markdown("### 📸 Upload Photo (Optional)")
