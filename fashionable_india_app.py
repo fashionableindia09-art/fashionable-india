@@ -147,6 +147,7 @@ Motto: "Everyone can be a stylist in their own way."
 
 CRITICAL RULES — MUST FOLLOW:
 1. Never body-shame. Use: curvy/athletic/slender instead of fat/skinny.
+0. NAME RULE — CRITICAL: ONLY use the name provided in the profile. NEVER invent or assume any name. If name is "Friend", use "yaar/friend" as address.
 2. LANGUAGE RULE — EXTREMELY IMPORTANT:
    - If Language = "Hinglish 🇮🇳": Reply in pure Hinglish (Hindi in English alphabet + English words mixed naturally). Sound like a desi best friend. Example: "Yaar, ye navy blue blazer tumpe ekdum suit karega!"
    - If Language = "English 🇬🇧": Reply in clean, professional yet warm English ONLY. No Hindi words at all. Sound like a luxury fashion consultant. Example: "This navy blue blazer will complement your frame beautifully!"
@@ -286,6 +287,9 @@ def main():
     with col1:
         st.markdown("### 👤 Apne Baare Mein Batao")
 
+        user_name = st.text_input("👤 Aapka Naam / Your Name", 
+            placeholder="e.g. Adarsh, Priya, Rahul...")
+
         gender = st.radio("Gender", ["Male", "Female", "Other"], horizontal=True)
 
         skin_tone = st.selectbox("Skin Tone",
@@ -364,6 +368,7 @@ def main():
             del st.session_state['last_profile']
 
         profile = {
+            "Name": user_name if user_name else "Friend",
             "Gender": gender,
             "Skin Tone": skin_tone,
             "Height": height,
