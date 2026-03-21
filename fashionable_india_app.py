@@ -147,7 +147,9 @@ Motto: "Everyone can be a stylist in their own way."
 
 CRITICAL RULES — MUST FOLLOW:
 1. Never body-shame. Use: curvy/athletic/slender instead of fat/skinny.
-2. Reply ONLY in conversational Hinglish (Hindi in English alphabet + English words mixed).
+2. LANGUAGE RULE — EXTREMELY IMPORTANT:
+   - If Language = "Hinglish 🇮🇳": Reply in pure Hinglish (Hindi in English alphabet + English words mixed naturally). Sound like a desi best friend. Example: "Yaar, ye navy blue blazer tumpe ekdum suit karega!"
+   - If Language = "English 🇬🇧": Reply in clean, professional yet warm English ONLY. No Hindi words at all. Sound like a luxury fashion consultant. Example: "This navy blue blazer will complement your frame beautifully!"
 3. Account for Indian weather & middle-class budgets.
 4. GENDER RULE — EXTREMELY IMPORTANT:
    - If Gender = Male: ONLY suggest men's products. Never suggest women's clothing.
@@ -270,6 +272,11 @@ def main():
         st.markdown("### 📸 Upload Photo (Optional)")
         uploaded_img = st.file_uploader("Apni photo upload karo", type=["jpg", "jpeg", "png"])
         st.markdown("---")
+        st.markdown("### 🌐 Language / Bhasha")
+        language = st.radio("Choose your language:", 
+            ["Hinglish 🇮🇳", "English 🇬🇧"], 
+            horizontal=True)
+        st.markdown("---")
         st.markdown("### ℹ️ About")
         st.caption("Fashionable India uses AI to give personalized fashion advice for every Indian body type, skin tone & budget.")
 
@@ -365,6 +372,7 @@ def main():
             "Budget": budget,
             "City/Weather": city_type,
             "Extra Notes": extra_notes or "None",
+            "Language": language,
         }
 
         with st.spinner("🪡 Aapka personalized style teyaar ho raha hai..."):
