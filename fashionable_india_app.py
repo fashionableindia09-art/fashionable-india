@@ -179,30 +179,36 @@ For WOMEN: Best haircut for face shape + styling tip
 Based on face shape, suggest exact frame style that suits them + why.
 
 9. 🛍️ Complete Shopping List (15-16 items):
-CRITICAL: EVERY item must match gender. Triple-check.
-Format: [Category] [Platform] -> Search: "[Exact search query]"
 
-Clothing (Gender-specific ONLY):
-- Upper 1: [Myntra/Ajio] -> Search: "[brand] [color] [fit] [type] [gender]"
-- Upper 2: [Myntra/Ajio] -> Search: "[brand] [color] [fit] [type] [gender]"
-- Lower 1: [Myntra/Ajio] -> Search: "[brand] [color] [fit] [type] [gender]"
-- Lower 2: [Meesho/Ajio] -> Search: "[brand] [color] [fit] [type] [gender]"
-- Ethnic/Occasion: [Myntra/Meesho] -> Search: "[brand] [type] [gender]"
-- Footwear 1: [Myntra/Flipkart] -> Search: "[brand] [type] [color] [gender]"
-- Footwear 2: [Amazon/Myntra] -> Search: "[brand] [type] [color] [gender]"
-- Sunglasses: [Amazon/Flipkart] -> Search: "[frame shape] sunglasses [gender]"
+⚠️ GENDER LOCK RULE — READ BEFORE WRITING EACH ITEM:
+- If Male: Search queries MUST contain "men" or "men's". Example: "HRX Navy Blue Slim Fit T-Shirt Men"
+- If Female: Search queries MUST contain "women" or "women's". Example: "Only Women Navy Blue Slim Fit Top"
+- NEVER write a search query without the gender word at the end.
+- SELF-CHECK: Before writing each item, ask — "Is this 100% for [their gender]?" If any doubt, rewrite.
 
-Skincare (skin type specific):
-- Face Wash: [Nykaa] -> Search: "[brand] [ingredient] face wash [skin type]"
+Format: [Category] [Platform] -> Search: "[Exact search query with gender word]"
+
+Clothing (STRICT Gender-specific):
+- Upper 1: [Myntra/Ajio] -> Search: "[brand] [color] [fit] [clothing type] [men/women]"
+- Upper 2: [Myntra/Ajio] -> Search: "[brand] [color] [fit] [clothing type] [men/women]"
+- Lower 1: [Myntra/Ajio] -> Search: "[brand] [color] [fit] [trouser/jeans/skirt/etc] [men/women]"
+- Lower 2: [Meesho/Ajio] -> Search: "[brand] [color] [fit] [trouser/jeans/skirt/etc] [men/women]"
+- Ethnic: [Myntra/Meesho] -> Search: "[brand] [kurta/kurti/sherwani/salwar] [men/women]"
+- Footwear 1: [Myntra/Flipkart] -> Search: "[brand] [sneakers/heels/loafers] [color] [men/women]"
+- Footwear 2: [Amazon/Myntra] -> Search: "[brand] [formal/casual shoes] [color] [men/women]"
+- Sunglasses: [Amazon/Flipkart] -> Search: "[frame shape] sunglasses [men/women]"
+
+Skincare (skin type + gender specific):
+- Face Wash: [Nykaa] -> Search: "[brand] [ingredient] face wash [skin type] [men/women]"
 - Toner: [Nykaa] -> Search: "[brand] [ingredient] toner [skin type]"
-- Serum: [Nykaa] -> Search: "[brand] [active ingredient] serum"
-- Moisturizer: [Nykaa/Flipkart] -> Search: "[brand] [type] moisturizer [skin type]"
-- Sunscreen: [Nykaa] -> Search: "[brand] SPF [number] sunscreen [skin type]"
-- Lip Balm: [Nykaa/Amazon] -> Search: "[brand] lip balm [concern]"
+- Serum: [Nykaa] -> Search: "[brand] [Vitamin C/Niacinamide/etc] serum [skin type]"
+- Moisturizer: [Nykaa/Flipkart] -> Search: "[brand] [gel/cream] moisturizer [skin type]"
+- Sunscreen: [Nykaa] -> Search: "[brand] SPF [50/30] sunscreen [skin type] [men/women]"
+- Lip Balm: [Nykaa/Amazon] -> Search: "[brand] lip balm [moisturizing/SPF]"
 
 Haircare (hair type specific):
-- Shampoo: [Nykaa/Amazon] -> Search: "[brand] shampoo [hair type/concern]"
-- Hair Serum: [Nykaa] -> Search: "[brand] hair serum [hair type]"
+- Shampoo: [Nykaa/Amazon] -> Search: "[brand] [sulfate-free/volumizing] shampoo [hair type]"
+- Hair Serum: [Nykaa] -> Search: "[brand] hair serum [frizz control/shine/etc]"
 
 TONE: Personal, warm, expert. Never generic. Every word feels made ONLY for this person.
 """
@@ -396,19 +402,17 @@ def main():
     # ─── FEEDBACK FORM ───
     st.markdown("---")
     st.markdown("### 📝 Feedback — Help Us Improve!")
-    with st.expander("💬 Apna feedback do (2 min ka kaam hai!)"):
-        fb_name = st.text_input("Naam (Optional)", key="fb_name")
-        fb_rating = st.select_slider("⭐ Rating", options=["1 - Poor", "2 - Below Average", "3 - Average", "4 - Good", "5 - Excellent"], value="4 - Good", key="fb_rating")
-        fb_liked = st.text_area("👍 Kya achha laga?", placeholder="e.g. Style suggestions bahut accurate thi!", key="fb_liked")
-        fb_improve = st.text_area("🔧 Kya improve ho sakta hai?", placeholder="e.g. Aur specific product links chahiye...", key="fb_improve")
-        fb_feature = st.multiselect("🚀 Kaunsa feature add hona chahiye?", ["Virtual Try-On", "Wardrobe Tracker", "Daily Outfit Suggestion", "WhatsApp Share", "Size Guide", "Price Comparison"], key="fb_feature")
-
-        if st.button("📤 Submit Feedback", key="fb_submit"):
-            if fb_liked or fb_improve:
-                st.success("✅ Shukriya! Aapka feedback mil gaya — hum zaroor improve karenge! 🙏")
-                st.balloons()
-            else:
-                st.warning("⚠️ Kuch toh likho pehle!")
+    st.markdown("""
+    <div style="background:linear-gradient(135deg,#fff8f2,#fef5ec);border:1px solid #e8d5c0;border-radius:16px;padding:1.5rem;text-align:center;">
+        <div style="font-size:2rem">💬</div>
+        <h4 style="color:#C84B31;font-family:'Playfair Display',serif;">Aapka Feedback Chahiye!</h4>
+        <p style="color:#8a6040;">2 minute mein batao — kya achha laga, kya improve ho sakta hai?<br>Har feedback personally padha jaata hai!</p>
+        <a href="https://forms.gle/HV25NY6bzF23Un659" target="_blank" 
+           style="display:inline-block;background:linear-gradient(135deg,#D4AF37,#C84B31);color:white;padding:0.8rem 2rem;border-radius:25px;font-weight:600;text-decoration:none;margin-top:0.5rem;">
+            📝 Feedback Do — 2 Min!
+        </a>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.markdown("---")
     st.markdown("<div style='text-align:center;color:#8a6040;font-size:0.8rem;padding:1rem'>Made with ❤️ for India | Fashionable India © 2025<br><a href='https://www.myntra.com' target='_blank' style='color:#8a6040'>Myntra</a> &nbsp;|&nbsp; <a href='https://www.ajio.com' target='_blank' style='color:#8a6040'>Ajio</a> &nbsp;|&nbsp; <a href='https://www.meesho.com' target='_blank' style='color:#8a6040'>Meesho</a> &nbsp;|&nbsp; <a href='https://www.nykaa.com' target='_blank' style='color:#8a6040'>Nykaa</a></div>", unsafe_allow_html=True)
