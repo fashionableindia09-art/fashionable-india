@@ -210,6 +210,10 @@ Haircare (hair type specific):
 - Shampoo: [Nykaa/Amazon] -> Search: "[brand] [sulfate-free/volumizing] shampoo [hair type]"
 - Hair Serum: [Nykaa] -> Search: "[brand] hair serum [frizz control/shine/etc]"
 
+Fragrance (gender + occasion specific):
+- Day Perfume: [Nykaa/Amazon] -> Search: "[brand] [fresh/citrus/light floral] perfume [men/women] EDT"
+- Night/Date Perfume: [Nykaa/Amazon] -> Search: "[brand] [woody/oriental/musky] perfume [men/women] EDP"
+
 TONE: Personal, warm, expert. Never generic. Every word feels made ONLY for this person.
 """
 
@@ -242,12 +246,12 @@ def parse_shopping_items(text: str):
                 "query": query.strip(),
                 "url": make_link(platform.strip(), query.strip())
             })
-    return items[:16]
+    return items[:18]
 
 # ─── MAIN APP ───
 def main():
     st.markdown('<div class="main-header">✨ Fashionable India</div>', unsafe_allow_html=True)
-    st.markdown('<div class="tagline">Everyone Can Be A Stylist In Their Own Way</div>', unsafe_allow_html=True)
+    st.markdown('<div class="tagline">Anyone Can Be A Stylist In Their Own Way</div>', unsafe_allow_html=True)
     st.markdown("---")
 
     with st.sidebar:
@@ -365,12 +369,14 @@ def main():
                         "👗 Clothing & Footwear": [],
                         "🧴 Skincare": [],
                         "💇 Haircare": [],
+                        "🌸 Fragrance": [],
                         "😎 Accessories": []
                     }
                     
                     skincare_keywords = ["face wash", "toner", "serum", "moisturizer", "sunscreen", "lip"]
                     hair_keywords = ["shampoo", "hair"]
                     sunglass_keywords = ["sunglass", "eyewear", "frame"]
+                    fragrance_keywords = ["perfume", "fragrance", "edt", "edp", "cologne", "deodorant"]
                     
                     for item in items:
                         q = item['query'].lower()
@@ -378,6 +384,8 @@ def main():
                             categories["🧴 Skincare"].append(item)
                         elif any(k in q for k in hair_keywords):
                             categories["💇 Haircare"].append(item)
+                        elif any(k in q for k in fragrance_keywords):
+                            categories["🌸 Fragrance"].append(item)
                         elif any(k in q for k in sunglass_keywords):
                             categories["😎 Accessories"].append(item)
                         else:
