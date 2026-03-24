@@ -358,26 +358,25 @@ def main():
                     if section.strip():
                         st.markdown(f'<div class="result-section">{section.strip().replace(chr(10), "<br>")}</div>', unsafe_allow_html=True)
 
-                # Shopping Links
+                # Shopping Links — Tabbed
                 items = parse_shopping_items(result)
                 if items:
                     st.markdown("---")
                     st.markdown("### 🛒 Direct Shopping Links")
-                    
-                    # Categorize items
+
+                    # Categorize
                     categories = {
-                        "👗 Clothing & Footwear": [],
+                        "👗 Outfit": [],
                         "🧴 Skincare": [],
                         "💇 Haircare": [],
                         "🌸 Fragrance": [],
                         "😎 Accessories": []
                     }
-                    
                     skincare_keywords = ["face wash", "toner", "serum", "moisturizer", "sunscreen", "lip"]
-                    hair_keywords = ["shampoo", "hair"]
-                    sunglass_keywords = ["sunglass", "eyewear", "frame"]
-                    fragrance_keywords = ["perfume", "fragrance", "edt", "edp", "cologne", "deodorant"]
-                    
+                    hair_keywords = ["shampoo", "hair serum", "hair oil"]
+                    fragrance_keywords = ["perfume", "fragrance", "edt", "edp", "cologne"]
+                    sunglass_keywords = ["sunglass", "eyewear", "frame", "spectacle"]
+
                     for item in items:
                         q = item['query'].lower()
                         if any(k in q for k in skincare_keywords):
@@ -389,16 +388,22 @@ def main():
                         elif any(k in q for k in sunglass_keywords):
                             categories["😎 Accessories"].append(item)
                         else:
-                            categories["👗 Clothing & Footwear"].append(item)
+                            categories["👗 Outfit"].append(item)
 
-                    for cat_name, cat_items in categories.items():
-                        if cat_items:
-                            st.markdown(f"**{cat_name}**")
-                            cols = st.columns(min(len(cat_items), 4))
-                            for i, item in enumerate(cat_items):
-                                with cols[i % 4]:
-                                    st.markdown(f'<a href="{item["url"]}" target="_blank" class="shop-btn">🛍️ {item["platform"]}<br><small>{item["query"][:25]}...</small></a>', unsafe_allow_html=True)
-                            st.markdown("")
+                    # Filter only non-empty categories
+                    active_cats = {k: v for k, v in categories.items() if v}
+                    
+                    if active_cats:
+                        tabs = st.tabs(list(active_cats.keys()))
+                        for tab, (cat_name, cat_items) in zip(tabs, active_cats.items()):
+                            with tab:
+                                cols = st.columns(min(len(cat_items), 3))
+                                for i, item in enumerate(cat_items):
+                                    with cols[i % 3]:
+                                        st.markdown(f'''<a href="{item["url"]}" target="_blank" style="display:block;background:linear-gradient(135deg,#D4AF37,#C84B31);color:white;padding:0.6rem 0.8rem;border-radius:12px;font-size:0.8rem;font-weight:500;margin:0.3rem 0;text-decoration:none;text-align:center;">
+                                            🛍️ {item["platform"]}<br>
+                                            <span style="font-size:0.72rem;opacity:0.9">{item["query"][:30]}...</span>
+                                        </a>''', unsafe_allow_html=True)
 
                 # Download
                 st.markdown("---")
