@@ -466,7 +466,17 @@ def main():
                 st.download_button("📥 Style Report Download Karo", data=result, file_name=f"style_report_{user_name or 'me'}.txt", mime="text/plain")
 
             except Exception as e:
-                st.error(f"❌ Error: {str(e)}")
+                err = str(e).lower()
+                if "restricted" in err or "organization" in err:
+                    st.error("⚠️ Hum abhi thodi technical difficulty face kar rahe hain. Kripya 5-10 minute baad dobara try karein! Inconvenience ke liye maafi chahte hain. 🙏")
+                elif "rate" in err or "429" in err:
+                    st.error("⏳ Bahut zyada requests aa gayi hain! Thoda wait karein aur 1 minute baad dobara try karein.")
+                elif "quota" in err:
+                    st.error("⏳ Aaj ki limit poori ho gayi! Kal subah phir try karein — bilkul free rahega! 🙏")
+                elif "api" in err or "key" in err:
+                    st.error("🔑 Technical issue aa gaya! Hum jald fix kar rahe hain. Thodi der baad try karein.")
+                else:
+                    st.error("⚠️ Kuch gadbad ho gayi! Please 2-3 minute baad dobara try karein. 🙏")
 
     # ─── FEEDBACK FORM ───
     st.markdown("---")
