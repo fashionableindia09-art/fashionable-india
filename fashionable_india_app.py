@@ -13,14 +13,65 @@ st.set_page_config(
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=DM+Sans:wght@300;400;500&display=swap');
-html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; background-color: #fdfaf7; color: #1a1208; }
-.main-header { font-family: 'Playfair Display', serif; font-size: 3.2rem; font-weight: 800; background: linear-gradient(135deg, #D4AF37, #FF6B6B, #C84B31); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; padding: 1rem 0 0.2rem; }
-.tagline { text-align: center; color: #8a6040; font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2rem; }
-.result-section { background: linear-gradient(135deg, #fff8f2, #fef5ec); border-left: 4px solid #D4AF37; border-radius: 0 12px 12px 0; padding: 1.2rem 1.5rem; margin: 0.8rem 0; }
-.shop-btn { display: inline-block; background: linear-gradient(135deg, #D4AF37, #C84B31); color: white !important; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; margin: 0.2rem; text-decoration: none !important; }
-hr { border-color: #e8d5c0 !important; }
-.stButton>button { background: linear-gradient(135deg, #D4AF37, #C84B31); color: white; border: none; border-radius: 25px; padding: 0.6rem 2rem; font-size: 1rem; font-weight: 600; width: 100%; }
-.stTextArea textarea { background: #fff8f2 !important; color: #1a1208 !important; border-color: #e8d5c0 !important; border-radius: 10px; }
+
+html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
+
+.main-header { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 3.2rem; 
+    font-weight: 800; 
+    background: linear-gradient(135deg, #D4AF37, #FF6B6B, #C84B31); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    text-align: center; 
+    padding: 1rem 0 0.2rem; 
+}
+
+.tagline { 
+    text-align: center; 
+    color: #D4AF37; 
+    font-size: 1rem; 
+    letter-spacing: 0.15em; 
+    text-transform: uppercase; 
+    margin-bottom: 2rem; 
+}
+
+/* Result sections — auto dark/light */
+.result-section { 
+    border-left: 4px solid #D4AF37; 
+    border-radius: 0 12px 12px 0; 
+    padding: 1.2rem 1.5rem; 
+    margin: 0.8rem 0;
+    background: rgba(212, 175, 55, 0.08);
+}
+
+/* Text inside result sections — always visible */
+.result-section * {
+    color: inherit !important;
+}
+
+.shop-btn { 
+    display: inline-block; 
+    background: linear-gradient(135deg, #D4AF37, #C84B31); 
+    color: white !important; 
+    padding: 0.4rem 1rem; 
+    border-radius: 20px; 
+    font-size: 0.8rem; 
+    font-weight: 500; 
+    margin: 0.2rem; 
+    text-decoration: none !important; 
+}
+
+.stButton>button { 
+    background: linear-gradient(135deg, #D4AF37, #C84B31) !important; 
+    color: white !important; 
+    border: none !important; 
+    border-radius: 25px !important; 
+    padding: 0.6rem 2rem !important; 
+    font-size: 1rem !important; 
+    font-weight: 600 !important; 
+    width: 100% !important; 
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -300,9 +351,9 @@ def main():
             st.image(img, caption="Tumhari photo 📸", use_container_width=True)
             st.success("✅ Photo upload ho gayi!")
         else:
-            st.markdown("""<div style="background:linear-gradient(145deg,#fff8f2,#fef3e8);border:1px solid #e8d5c0;border-radius:16px;padding:3rem 1rem;text-align:center;">
+            st.markdown("""<div style="border:1px solid #D4AF37;border-radius:16px;padding:3rem 1rem;text-align:center;background:rgba(212,175,55,0.08);">
                 <div style="font-size:4rem">👗</div>
-                <p style="color:#8a6040;margin-top:1rem">Form bhar ke apna<br>AI Style Report pao!</p></div>""", unsafe_allow_html=True)
+                <p style="margin-top:1rem;color:#D4AF37;">Form bhar ke apna<br>AI Style Report pao!</p></div>""", unsafe_allow_html=True)
 
         st.markdown("### 💡 Style Tip")
         import random
@@ -311,7 +362,7 @@ def main():
 
         st.markdown("### 📊 Your Profile Summary")
         if user_name:
-            st.markdown(f"""<div style="background:#fff8f2;border:1px solid #e8d5c0;border-radius:12px;padding:1rem;">
+            st.markdown(f"""<div style="border:1px solid #D4AF37;border-radius:12px;padding:1rem;background:rgba(212,175,55,0.08);">
             <b>👤 {user_name}</b> | {gender}<br>
             🎨 {skin_tone} | 📏 {height}<br>
             😊 {face_shape} face | 🧴 {skin_type} skin<br>
@@ -356,7 +407,12 @@ def main():
                 sections = re.split(r'(?=\d+\.\s[🌟👗🌍✨💆💇🎨😎🛍️])', result)
                 for section in sections:
                     if section.strip():
-                        st.markdown(f'<div class="result-section">{section.strip().replace(chr(10), "<br>")}</div>', unsafe_allow_html=True)
+                        st.markdown(
+                            f'''<div style="border-left:4px solid #D4AF37;border-radius:0 12px 12px 0;padding:1.2rem 1.5rem;margin:0.8rem 0;background:rgba(212,175,55,0.08);">
+                            {section.strip().replace(chr(10), "<br>")}
+                            </div>''', 
+                            unsafe_allow_html=True
+                        )
 
                 # Shopping Links — Tabbed
                 items = parse_shopping_items(result)
@@ -416,10 +472,10 @@ def main():
     st.markdown("---")
     st.markdown("### 📝 Feedback — Help Us Improve!")
     st.markdown("""
-    <div style="background:linear-gradient(135deg,#fff8f2,#fef5ec);border:1px solid #e8d5c0;border-radius:16px;padding:1.5rem;text-align:center;">
+    <div style="border:1px solid #D4AF37;border-radius:16px;padding:1.5rem;text-align:center;background:rgba(212,175,55,0.08);">
         <div style="font-size:2rem">💬</div>
-        <h4 style="color:#C84B31;font-family:'Playfair Display',serif;">Aapka Feedback Chahiye!</h4>
-        <p style="color:#8a6040;">2 minute mein batao — kya achha laga, kya improve ho sakta hai?<br>Har feedback personally padha jaata hai!</p>
+        <h4 style="color:#D4AF37;font-family:'Playfair Display',serif;">Aapka Feedback Chahiye!</h4>
+        <p>2 minute mein batao — kya achha laga, kya improve ho sakta hai?<br>Har feedback personally padha jaata hai!</p>
         <a href="https://forms.gle/HV25NY6bzF23Un659" target="_blank" 
            style="display:inline-block;background:linear-gradient(135deg,#D4AF37,#C84B31);color:white;padding:0.8rem 2rem;border-radius:25px;font-weight:600;text-decoration:none;margin-top:0.5rem;">
             📝 Feedback Do — 2 Min!
