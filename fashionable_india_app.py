@@ -303,11 +303,26 @@ def parse_shopping_items(text: str):
 def main():
     st.markdown('<div class="main-header">✨ Fashionable India</div>', unsafe_allow_html=True)
     st.markdown('<div class="tagline">Anyone Can Be A Stylist In Their Own Way</div>', unsafe_allow_html=True)
+    
+    if 'cuelinks_id' in dir() and cuelinks_id:
+        st.markdown(f"""
+        <script type="text/javascript">
+          var cuelinks = {{ key: '{cuelinks_id}' }};
+        </script>
+        <script async src="https://cdn-widget.cuelinks.com/js/cuelinks.js"></script>
+        """, unsafe_allow_html=True)
     st.markdown("---")
 
     with st.sidebar:
         st.markdown("### ⚙️ Settings")
         api_key = st.secrets.get("GROQ_API_KEY", "") or st.text_input("🔑 Groq API Key", type="password")
+        st.markdown("---")
+        st.markdown("### 💰 Monetization")
+        cuelinks_id = st.secrets.get("CUELINKS_PUB_ID", "") or st.text_input("🔗 Cuelinks Publisher ID", type="password", help="Cuelinks dashboard se apna ID daalo")
+        if cuelinks_id:
+            st.success("✅ Monetization Active!")
+        else:
+            st.caption("💡 Cuelinks ID daalo to earn karo!")
         st.markdown("---")
         st.markdown("### 🌐 Language / Bhasha")
         language = st.radio("", ["Hinglish 🇮🇳", "English 🇬🇧"], horizontal=True)
